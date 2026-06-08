@@ -28,7 +28,9 @@ export default function Register() {
     try {
       await register(form)
       toast.success('تم إنشاء الحساب بنجاح، أهلاً بك!')
-      navigate('/')
+      if (form.role === 'shop_owner') navigate('/shop-dashboard')
+      else if (form.role === 'admin') navigate('/admin')
+      else navigate('/')
     } catch (err) {
       toast.error(err.response?.data?.message || 'حدث خطأ أثناء إنشاء الحساب')
     } finally {
