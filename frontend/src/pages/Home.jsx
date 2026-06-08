@@ -32,42 +32,83 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section style={{
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-        color: 'white', padding: '80px 0 100px', position: 'relative', overflow: 'hidden'
-      }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(233,69,96,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(245,166,35,0.1) 0%, transparent 40%)' }} />
-        <div className="container" style={{ position: 'relative', textAlign: 'center' }}>
-          <div style={{ display: 'inline-block', background: 'rgba(233,69,96,0.2)', border: '1px solid rgba(233,69,96,0.4)', borderRadius: 20, padding: '6px 20px', marginBottom: 24, fontSize: 14, color: '#f5a623' }}>
-            🔥 أكبر منصة لتأجير مصفات السيارات في الأردن
-          </div>
-          <h1 style={{ fontSize: 'clamp(32px, 6vw, 60px)', fontWeight: 900, lineHeight: 1.2, marginBottom: 20 }}>
-            اعثر على <span style={{ color: '#e94560' }}>مصفة مثالية</span><br />لسيارتك اليوم
-          </h1>
-          <p style={{ fontSize: 18, opacity: 0.8, maxWidth: 600, margin: '0 auto 40px' }}>
-            تواصل مباشرة مع محلات التأجير، احجز بسهولة، وانطلق بستايل
-          </p>
-          <form onSubmit={handleSearch} style={{ display: 'flex', maxWidth: 600, margin: '0 auto', gap: 0 }}>
-            <input
-              type="text"
-              placeholder="ابحث عن مصفة (الحجم، الماركة، المحل...)"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{ flex: 1, padding: '16px 20px', fontSize: 16, borderRadius: '12px 0 0 12px', border: 'none', outline: 'none', fontFamily: 'Cairo', direction: 'rtl' }}
-            />
-            <button type="submit" className="btn btn-primary btn-lg" style={{ borderRadius: '0 12px 12px 0', gap: 8 }}>
-              🔍 بحث
-            </button>
-          </form>
-          {/* Quick filters */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 24, flexWrap: 'wrap' }}>
-            {['17"', '18"', '19"', '20"', '22"'].map(size => (
-              <button key={size} onClick={() => navigate(`/rims?size=${size}`)}
-                style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '7px 18px', borderRadius: 20, cursor: 'pointer', fontFamily: 'Cairo', fontSize: 14, fontWeight: 600, transition: 'all 0.2s' }}
-              >
-                {size}
+      <section className="hero-section">
+        <div className="hero-grid" />
+        {[...Array(14)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            left: `${(i * 7 + 4) % 100}%`,
+            bottom: '-8px',
+            width: `${(i % 3) + 2}px`,
+            height: `${(i % 3) + 2}px`,
+            animationDelay: `${(i * 0.6) % 7}s`,
+            animationDuration: `${(i % 4) + 7}s`,
+          }} />
+        ))}
+        <div className="container hero-content" style={{ position: 'relative' }}>
+          {/* Text */}
+          <div>
+            <div className="hero-badge">🔥 أكبر منصة لتأجير مصفات السيارات في الأردن</div>
+            <h1 className="hero-title">
+              اعثر على{' '}
+              <span className="neon-text" style={{ color: '#e94560' }}>مصفة مثالية</span>
+              <br />لسيارتك اليوم
+            </h1>
+            <p className="hero-desc">تواصل مباشرة مع محلات التأجير، احجز بسهولة، وانطلق بستايل</p>
+            <form onSubmit={handleSearch} className="hero-search">
+              <input
+                type="text"
+                placeholder="ابحث عن مصفة (الحجم، الماركة، المحل...)"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+              <button type="submit" className="btn btn-primary btn-lg neon-btn" style={{ borderRadius: 0, whiteSpace: 'nowrap' }}>
+                🔍 بحث
               </button>
-            ))}
+            </form>
+            <div className="hero-sizes">
+              {['17"', '18"', '19"', '20"', '22"'].map(size => (
+                <button key={size} className="hero-size-btn" onClick={() => navigate(`/rims?size=${size}`)}>
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 3D Rim */}
+          <div className="hero-rim-wrapper">
+            <div className="rim-glow" />
+            <div className="floating">
+              <div className="rotate-rim">
+                <svg width="300" height="300" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  style={{ filter: 'drop-shadow(0 0 8px #e94560) drop-shadow(0 0 20px rgba(233,69,96,0.45))' }}>
+                  <circle cx="100" cy="100" r="95" stroke="rgba(233,69,96,0.25)" strokeWidth="9" fill="none" />
+                  <circle cx="100" cy="100" r="86" stroke="#e94560" strokeWidth="2.5" fill="none" />
+                  <circle cx="100" cy="100" r="56" stroke="#e94560" strokeWidth="1.5" fill="rgba(233,69,96,0.04)" />
+                  <circle cx="100" cy="100" r="43" stroke="rgba(233,69,96,0.25)" strokeWidth="1" strokeDasharray="5 5" fill="none" />
+                  <circle cx="100" cy="100" r="19" stroke="#e94560" strokeWidth="2.5" fill="rgba(233,69,96,0.18)" />
+                  <circle cx="100" cy="100" r="5" fill="#e94560" />
+                  {[0, 72, 144, 216, 288].map(angle => {
+                    const rad = ((angle - 90) * Math.PI) / 180;
+                    const perpRad = rad + Math.PI / 2;
+                    const x1 = 100 + 19 * Math.cos(rad), y1 = 100 + 19 * Math.sin(rad);
+                    const x2 = 100 + 86 * Math.cos(rad), y2 = 100 + 86 * Math.sin(rad);
+                    const off = 4;
+                    return (
+                      <g key={angle}>
+                        <line x1={x1 + off * Math.cos(perpRad)} y1={y1 + off * Math.sin(perpRad)} x2={x2 + off * Math.cos(perpRad)} y2={y2 + off * Math.sin(perpRad)} stroke="#e94560" strokeWidth="1.2" strokeOpacity="0.5" />
+                        <line x1={x1 - off * Math.cos(perpRad)} y1={y1 - off * Math.sin(perpRad)} x2={x2 - off * Math.cos(perpRad)} y2={y2 - off * Math.sin(perpRad)} stroke="#e94560" strokeWidth="1.2" strokeOpacity="0.5" />
+                        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#e94560" strokeWidth="2.8" />
+                      </g>
+                    );
+                  })}
+                  {[0, 72, 144, 216, 288].map(angle => {
+                    const rad = ((angle - 90) * Math.PI) / 180;
+                    const x = 100 + 31 * Math.cos(rad), y = 100 + 31 * Math.sin(rad);
+                    return <circle key={`b${angle}`} cx={x} cy={y} r="4" stroke="#e94560" strokeWidth="1.5" fill="rgba(233,69,96,0.28)" />;
+                  })}
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </section>

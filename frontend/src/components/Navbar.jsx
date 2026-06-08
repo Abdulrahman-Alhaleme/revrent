@@ -1,13 +1,27 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import api from '../utils/api';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [unread, setUnread] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleClick = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) setMobileOpen(false);
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (!user) return;
@@ -17,7 +31,7 @@ export default function Navbar() {
   const handleLogout = () => { logout(); navigate('/'); };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" ref={navRef} style={{ position: 'relative' }}>
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo">
           🔧 Rim<span>Rent</span>
@@ -61,6 +75,29 @@ export default function Navbar() {
             </>
           )}
         </div>
+
+        {/* Hamburger */}
+        <button className="navbar-hamburger" onClick={() => setMobileOpen(o => !o)} aria-label="القائمة">
+          <span style={mobileOpen ? { transform: 'rotate(45deg) translate(5px, 5px)' } : {}} />
+          <span style={mobileOpen ? { opacity: 0, transform: 'scaleX(0)' } : {}} />
+          <span style={mobileOpen ? { transform: 'rotate(-45deg) translate(5px, -5px)' } : {}} />
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      <div className={`navbar-mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        <NavLink to="/" className={({ isActive }) => `navbar-mobile-link ${isActive ? 'active' : ''}`} end onClick={() => setMobileOpen(false)}>🏠 الرئيسية</NavLink>
+        <NavLink to="/rims" className={({ isActive }) => `navbar-mobile-link ${isActive ? 'active' : ''}`} onClick={() => setMobileOpen(false)}>🔧 المصفات</NavLink>
+        <NavLink to="/shops" className={({ isActive }) => `navbar-mobile-link ${isActive ? 'active' : ''}`} onClick={() => setMobileOpen(false)}>🏪 المحلات</NavLink>
+        {!user && (
+          <>
+            <div className="navbar-mobile-divider" />
+            <div className="navbar-mobile-actions">
+              <Link to="/login" className="btn btn-outline btn-sm" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)', flex: 1, justifyContent: 'center' }} onClick={() => setMobileOpen(false)}>تسجيل الدخول</Link>
+              <Link to="/register" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }} onClick={() => setMobileOpen(false)}>إنشاء حساب</Link>
+            </div>
+          </>
+        )}
       </div>
     </nav>
   );
