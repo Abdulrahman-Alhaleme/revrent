@@ -267,7 +267,7 @@ export default function ShopDashboard() {
             {rims.length === 0 ? <EmptyState icon="🔧" title="لا توجد مصفات" message="أضف مصفتك الأولى لتبدأ بالتأجير" action={<button className="btn btn-primary" onClick={openAdd}>إضافة مصفة</button>} /> : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {rims.map(rim => (
-                  <div key={rim.id} className="card" style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'center' }}>
+                  <div key={rim.id} className="card rim-row" style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'center' }}>
                     <div style={{ width: 80, height: 80, borderRadius: 10, overflow: 'hidden', flexShrink: 0, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       {rim.primary_image
                         ? <img src={rim.primary_image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { e.target.style.display = 'none' }} />
@@ -280,7 +280,7 @@ export default function ShopDashboard() {
                       </div>
                       <div style={{ color: 'var(--accent)', fontWeight: 700, marginTop: 4 }}>{rim.price_per_day} د.أ / يوم</div>
                     </div>
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                    <div className="rim-row-actions" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                       <button onClick={() => toggleAvail(rim)} className="btn btn-sm"
                         style={{ background: rim.is_available ? '#d1fae5' : '#f3f4f6', color: rim.is_available ? '#065f46' : 'var(--text-muted)' }}>
                         {rim.is_available ? '✅ متاح' : '🚫 مخفي'}
@@ -313,7 +313,7 @@ export default function ShopDashboard() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {filteredBookings.map(b => (
                   <div key={b.id} className="card" style={{ padding: 20 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+                    <div className="booking-detail-row" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
                       <div>
                         <h3 style={{ fontWeight: 800, marginBottom: 4 }}>{b.rim_name}</h3>
                         <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>

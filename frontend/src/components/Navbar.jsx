@@ -50,7 +50,7 @@ export default function Navbar() {
                 <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#e94560', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 14 }}>
                   {user.full_name?.[0]?.toUpperCase()}
                 </div>
-                {user.full_name?.split(' ')[0]}
+                <span className="navbar-user-name">{user.full_name?.split(' ')[0]}</span>
                 {unread > 0 && <span style={{ background: '#e94560', borderRadius: '50%', width: 18, height: 18, fontSize: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{unread}</span>}
               </button>
               {menuOpen && (

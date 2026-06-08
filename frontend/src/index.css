@@ -215,3 +215,66 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .hero-content { gap: 32px; }
 }
+
+/* ===== FILTER SIDEBAR (Rims page) ===== */
+.mobile-filter-btn { display: none; }
+.mobile-filter-close { display: none; }
+.filters-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 298; }
+.filters-overlay.visible { display: block; }
+
+@media (max-width: 768px) {
+  /* Filter drawer */
+  .mobile-filter-btn { display: flex !important; }
+  .mobile-filter-close { display: flex !important; }
+  .filters-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    right: -110% !important;
+    width: min(300px, 85vw) !important;
+    height: 100vh !important;
+    z-index: 299;
+    overflow-y: auto;
+    transition: right 0.3s ease !important;
+    padding: 20px !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+  .filters-sidebar.mobile-open { right: 0 !important; box-shadow: -4px 0 24px rgba(0,0,0,0.18) !important; }
+
+  /* Navbar username */
+  .navbar-user-name { display: none; }
+
+  /* RimDetail image */
+  .rim-detail-main-img { height: 240px !important; }
+
+  /* RimDetail booking - remove sticky */
+  .rim-booking-sticky { position: static !important; top: auto !important; }
+
+  /* Rims page layout - stack on mobile */
+  .rims-layout { flex-direction: column !important; }
+
+  /* Stats section */
+  .home-stats { gap: 20px !important; justify-content: space-around !important; }
+  .home-stats > div { min-width: 80px; }
+
+  /* ShopDashboard rim row */
+  .rim-row { flex-wrap: wrap !important; }
+  .rim-row-actions { width: 100%; justify-content: flex-start !important; margin-top: 8px; }
+
+  /* Booking card detail row */
+  .booking-detail-row { flex-direction: column !important; align-items: flex-start !important; }
+  .booking-detail-row > div:last-child { align-items: flex-start !important; flex-direction: row !important; flex-wrap: wrap; width: 100%; }
+}
+
+@media (max-width: 480px) {
+  /* Card actions stacked */
+  .card-action-row { flex-direction: column !important; }
+  .card-action-row .btn { width: 100%; justify-content: center; }
+
+  /* Table overflow */
+  .table-scroll { overflow-x: auto; }
+
+  /* Fix page header padding */
+  .page-header { padding: 28px 0 20px !important; }
+  .page-header h1 { font-size: 20px !important; }
+}

@@ -115,7 +115,7 @@ export default function Home() {
 
       {/* Stats */}
       <section style={{ background: 'white', borderBottom: '1px solid #e5e7eb' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'center', gap: 60, padding: '28px 20px', flexWrap: 'wrap' }}>
+        <div className="container home-stats" style={{ display: 'flex', justifyContent: 'center', gap: 60, padding: '28px 20px', flexWrap: 'wrap' }}>
           {[
             { n: '500+', label: 'مستخدم نشط' },
             { n: '35+', label: 'محل معتمد' },

@@ -12,6 +12,7 @@ export default function RimsPage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({});
+  const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
     search: searchParams.get('search') || '',
     size: searchParams.get('size') || '',
@@ -46,11 +47,17 @@ export default function RimsPage() {
   const updateFilter = (key, val) => setFilters(f => ({ ...f, [key]: val, page: 1 }));
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', minHeight: '100vh' }} className="rims-layout">
+      {/* Mobile filter overlay */}
+      <div className={`filters-overlay ${showFilters ? 'visible' : ''}`} onClick={() => setShowFilters(false)} />
+
       {/* Sidebar Filters */}
-      <aside style={{ width: 260, flexShrink: 0, padding: '24px 0 24px 20px', background: 'white', borderLeft: '1px solid #e5e7eb', position: 'sticky', top: 68, height: 'calc(100vh - 68px)', overflowY: 'auto' }}>
+      <aside className={`filters-sidebar ${showFilters ? 'mobile-open' : ''}`} style={{ width: 260, flexShrink: 0, padding: '24px 0 24px 20px', background: 'white', borderLeft: '1px solid #e5e7eb', position: 'sticky', top: 68, height: 'calc(100vh - 68px)', overflowY: 'auto' }}>
         <div style={{ padding: '0 20px' }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20 }}>🎛️ الفلاتر</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700 }}>🎛️ الفلاتر</h3>
+            <button className="mobile-filter-close btn btn-sm btn-outline" onClick={() => setShowFilters(false)} style={{ padding: '4px 10px' }}>✕ إغلاق</button>
+          </div>
 
           {/* Sort */}
           <div className="form-group">
@@ -109,7 +116,15 @@ export default function RimsPage() {
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, padding: '24px 24px 24px 0' }}>
+      <main style={{ flex: 1, padding: '24px 24px 24px 0', minWidth: 0 }}>
+        {/* Mobile filter button */}
+        <button className="mobile-filter-btn btn btn-outline" onClick={() => setShowFilters(true)} style={{ gap: 8 }}>
+          🎛️ الفلاتر
+          {(filters.size || filters.category_id || filters.min_price || filters.max_price || filters.city) && (
+            <span style={{ background: '#e94560', color: 'white', borderRadius: '50%', width: 18, height: 18, fontSize: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>!</span>
+          )}
+        </button>
+
         {/* Search bar */}
         <div style={{ marginBottom: 24 }}>
           <div style={{ position: 'relative' }}>

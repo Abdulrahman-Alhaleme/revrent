@@ -72,7 +72,7 @@ export default function RimDetail() {
         {/* ── Left Column ── */}
         <div>
           {/* Main image */}
-          <div style={{ borderRadius: 'var(--radius)', overflow: 'hidden', marginBottom: 10, background: '#f3f4f6', height: 380, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="rim-detail-main-img" style={{ borderRadius: 'var(--radius)', overflow: 'hidden', marginBottom: 10, background: '#f3f4f6', height: 380, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {mainSrc ? (
               <img
                 src={mainSrc} alt={rim.name}
@@ -163,7 +163,7 @@ export default function RimDetail() {
         </div>
 
         {/* ── Right Column ── */}
-        <div style={{ position: 'sticky', top: 88 }}>
+        <div className="rim-booking-sticky" style={{ position: 'sticky', top: 88 }}>
           {/* Title + price */}
           <div className="card" style={{ padding: 24, marginBottom: 20 }}>
             <h1 style={{ fontSize: 24, fontWeight: 900, marginBottom: 12 }}>{rim.name}</h1>
